@@ -1,0 +1,9 @@
+.Banner-wrap{
+  background-image: url(../../assets/img/bg.png);
+  background-size: cover;
+  background-position: center center;
+  padding: 180px 0;
+}
+.search-form-wrap{
+  margin-top: 20px;
+}

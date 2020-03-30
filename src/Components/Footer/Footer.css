@@ -1,0 +1,25 @@
+footer{
+  background: #191919;
+}
+section.footer-top {
+  padding: 60px 0;
+}
+footer ul {
+  margin: 0;
+  padding: 0;
+}
+footer ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 0;
+  display: block;
+}
+footer ul li a:hover {
+  color: #f50057;
+}
+footer ul li {
+  list-style: none;
+}
+footer img {
+  height: 60px;
+}
