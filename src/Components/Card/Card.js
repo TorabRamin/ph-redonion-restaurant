@@ -37,8 +37,7 @@ const useStyles = makeStyles({
   },
   foodCardActionArea: {
     borderRadius: 10
-  },
-  
+  }
 });
 
 export const FoodCard = () => {
