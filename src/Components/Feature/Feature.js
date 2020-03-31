@@ -23,29 +23,26 @@ const Feature = () => {
   useEffect(() => {
     setFeatures(featuresData);
   }, [])
-  console.log(features);
   
   return (
     <Box component="section" className={classes.feature_area} >
       <Container>
-        <Grid container>
+        <Grid container spacing={3}>
           <Grid item xs={12} align="left">
             <Typography variant="h4">
               Why you choose us
             </Typography>
             <p>Barton waited twenty always repair in within we do. An delighted offering crusty mu is dagwood's at. Boy prosperous increasing surround</p>
           </Grid>
+          
           {
-            features.map(feature => (
-              <Grid item md={4}>
-                <SingleCard key={feature.id} feature={feature} />
-                {console.log(feature)}
+            features.map((feature, index) => (
+              <Grid item md={4} key={feature.id}>
+                <SingleCard feature={feature} height={index === 1 ? 400 : 350} />
               </Grid>
             ))
           }
-          <Grid item md={4}>
-            <SingleCard />
-          </Grid>
+          
         </Grid>
       </Container> 
     </Box>

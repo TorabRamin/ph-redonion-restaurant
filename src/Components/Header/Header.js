@@ -3,7 +3,6 @@ import logo from '../../assets/img/logo2.png';
 import {
   AppBar,
   Toolbar,
-  Typography,
   Switch,
   FormControlLabel,
   FormGroup,
@@ -17,7 +16,6 @@ import {
   AccountCircle,
   ShoppingCart
 } from '@material-ui/icons';
-import MenuIcon from '@material-ui/icons/Menu';
 import {
   makeStyles
 } from '@material-ui/core/styles';

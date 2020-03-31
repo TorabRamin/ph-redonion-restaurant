@@ -1,7 +1,6 @@
 import React from 'react';
 import './Banner.css'
 import { Typography, InputBase, Button, Box } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
 import {
   fade, makeStyles
 } from '@material-ui/core/styles';
