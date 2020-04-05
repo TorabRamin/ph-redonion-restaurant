@@ -16,7 +16,7 @@ const FooterTop = () => {
       <Container>
         <Grid container>
           <Grid item md={6}>
-            <img src={logo} />
+            <img src={logo} alt="Logo" />
           </Grid>
           <Grid item md={3}>
             <ul>

@@ -3,14 +3,12 @@ import logo from '../../assets/img/logo2.png';
 import {
   AppBar,
   Toolbar,
-  Switch,
-  FormControlLabel,
-  FormGroup,
   MenuItem,
   Menu,
   IconButton,
   Button,
-  Container
+  Container,
+  Badge
 } from '@material-ui/core';
 import {
   AccountCircle,
@@ -19,13 +17,11 @@ import {
 import {
   makeStyles
 } from '@material-ui/core/styles';
+import {Link} from "react-router-dom";
 import './Header.css'
 
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
   menuButton: {
     marginRight: theme.spacing(1),
   },
@@ -42,13 +38,13 @@ const useStyles = makeStyles(theme => ({
 const Header = () => {
 
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
+  const [auth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  const handleChange = event => {
-    setAuth(event.target.checked);
-  };
+  // const handleChange = event => {
+  //   setAuth(event.target.checked);
+  // };
 
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);
@@ -60,21 +56,25 @@ const Header = () => {
 
   return (
     <header>
-        <FormGroup>
+        {/* <FormGroup>
           <FormControlLabel
             control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
             label={auth ? 'Logout' : 'Login'}
           />
-        </FormGroup>
+        </FormGroup> */}
         
       <AppBar color="transparent" position="static">
         <Container>
           <Toolbar disableGutters>
             <div className="logoWrap" >
-              <img src={logo} alt={logo} className="logo"/>
+              <Link to="/">
+                <img src={logo} alt={logo} className="logo"/>
+              </Link>
             </div>
             <IconButton edge="start" color="inherit" aria-label="menu">
-              <ShoppingCart />
+              <Badge badgeContent={4} color="secondary">
+                <ShoppingCart />
+              </Badge>
             </IconButton>
             {auth && (
               <div>

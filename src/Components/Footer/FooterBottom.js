@@ -27,9 +27,9 @@ const FooterBottom = () => {
           </Grid>
           <Grid item xs align="right">
             <ul>
-              <li><a href="#">Privacy Policy.</a></li>
-              <li><a href="#">Terms of Use</a></li>
-              <li><a href="#">Pricing</a></li>
+              <li><a href="https://meetramin.com/">Privacy Policy.</a></li>
+              <li><a href="https://meetramin.com/">Terms of Use</a></li>
+              <li><a href="https://meetramin.com/">Pricing</a></li>
             </ul>
           </Grid>
         </Grid>

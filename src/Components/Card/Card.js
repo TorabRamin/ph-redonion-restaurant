@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import classNames from 'classnames';
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles({
   cardImg: {
@@ -35,38 +36,44 @@ const useStyles = makeStyles({
   },
   foodCardActionArea: {
     borderRadius: 10
+  },
+  anchor: {
+    textDecoration: 'none',
+    color: '#000'
   }
 });
 
-export const FoodCard = () => {
+export const FoodCard = (props) => {
   const classes = useStyles();
-
+  const {name, price, shortDescription, images, id} = props.item
   return (
     <Card className={classNames(classes.cardWrap, classes.foodCardWrap)}>
-      <CardActionArea className = {
-        classNames(classes.cardActionArea, classes.foodCardActionArea)
-      } >
-        <CardMedia
-          component="img"
-          height= '200'
-          image = "https://i.ibb.co/pdfGzyp/breakfast1.png"
-          title="Contemplative Reptile"
-          className = {
-            classNames(classes.cardImg, classes.foodImg)
-          }
-        />
-        <CardContent align="center">
-          <Typography gutterBottom component="h6">
-            Fast Delivery
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            How we dream about our future
-          </Typography>
-          <Typography variant="h6" component="p">
-            $23.99
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+      <Link to={"/item/"+id} className={classes.anchor}>
+        <CardActionArea className = {
+          classNames(classes.cardActionArea, classes.foodCardActionArea)
+        } component="div">
+          <CardMedia
+            component="img"
+            height= '200'
+            image = {images[0]}
+            title={name}
+            className = {
+              classNames(classes.cardImg, classes.foodImg)
+            }
+          />
+          <CardContent align="center">
+            <Typography gutterBottom component="h6">
+              {name}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {shortDescription}
+            </Typography>
+            <Typography variant="h6" component="p">
+              ${price}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Link>
     </Card>
   );
 };
