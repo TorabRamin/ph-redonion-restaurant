@@ -35,7 +35,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Header = () => {
+const Header = (props) => {
+  const { cartItems } = props;
 
   const classes = useStyles();
   const [auth] = React.useState(true);
@@ -71,11 +72,14 @@ const Header = () => {
                 <img src={logo} alt={logo} className="logo"/>
               </Link>
             </div>
-            <IconButton edge="start" color="inherit" aria-label="menu">
-              <Badge badgeContent={4} color="secondary">
-                <ShoppingCart />
-              </Badge>
-            </IconButton>
+            <Link to="/checkout">
+              <IconButton component="div" edge="start" color="inherit" aria-label="menu">
+                <Badge badgeContent={cartItems.length} color="secondary">
+                  <ShoppingCart />
+                </Badge>
+              </IconButton>
+            </Link>
+
             {auth && (
               <div>
                 <IconButton

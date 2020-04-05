@@ -22,7 +22,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Checkout = () => {
+const Checkout = (props) => {
+  const { cartItems } = props;
   const classes = useStyles();
   return (
     <Box component='section'>
@@ -49,10 +50,15 @@ const Checkout = () => {
             </form>
           </Grid>
 
-          <Grid item md={2} xs={0}></Grid>
+          <Grid item md={2}></Grid>
           
           <Grid item md={4}>
-            <h1>Card Item</h1>
+            <h1>Cart Item</h1>
+            <ul>
+              {
+                cartItems.map(el => <li key={el.item.id}>{el.item.name} <br/> {el.quantity}</li>)
+              }
+            </ul>
           </Grid>
           
         </Grid>

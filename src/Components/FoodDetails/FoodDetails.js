@@ -7,6 +7,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import {useParams} from "react-router-dom";
 import foodData from '../../fakeData/foodsData';
 import BackButton from '../Buttons/BackButton';
+import AlertBar from '../AlertBar/AlertBar';
 
 const useStyles = makeStyles(theme => ({
   mainBtn: {
@@ -48,7 +49,9 @@ const useStyles = makeStyles(theme => ({
 
 
 
-const FoodDetails = () => {
+const FoodDetails = (props) => {
+
+  const {addCart} = props
   
   const classes = useStyles();
   const { itemId } = useParams();
@@ -65,11 +68,24 @@ const FoodDetails = () => {
     setQuantity(quantity - 1);
   }
 
-  const addToCart = () => {
-    const addToCart = price * quantity;
-    console.log(addToCart);
-  }
+  // Alert bar
+  const [open, setOpen] = useState(false);
 
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const addCartHandler = () => {
+    addCart({
+      item,
+      quantity
+    })
+    setOpen(true);
+  }
 
   return (
     <Box component='section'>
@@ -99,16 +115,19 @@ const FoodDetails = () => {
                 </Grid>
               </Grid>
             </Grid>
+            
             <Button
               variant="contained"
               color="secondary"
               size="large"
               className={classes.mainBtn}
               startIcon={<ShoppingCartIcon />}
-              onClick={()=> addToCart()}
+              onClick={addCartHandler}
             >
               Add
             </Button>
+            <AlertBar type="success" duration={1500} open={open} handleClose={handleClose}>Item Has Been Added</AlertBar>
+            
           </Grid>
 
           <Grid item md={6}>

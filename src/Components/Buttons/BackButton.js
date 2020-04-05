@@ -1,30 +1,22 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-const useStyles = makeStyles(theme => ({
-  anchor: {
-    textDecoration: 'none',
-    color: '#000'
-  }
-}));
 
-const BackButton = () => {
-  const classes = useStyles();
+
+const BackButton = (props) => {
 
   return (
-    <Link to="/" className={classes.anchor}>
       <Button
         color="secondary"
         startIcon={<KeyboardBackspaceIcon />}
         size='large'
         component="span"
+        onClick={props.history.goBack}
       >
         Back
       </Button>
-    </Link>
   );
 };
 
-export default BackButton;
+export default withRouter(BackButton);
