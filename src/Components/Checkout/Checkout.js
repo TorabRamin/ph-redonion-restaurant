@@ -1,19 +1,16 @@
-import React from 'react';
-import { Container, Grid, Box, Typography, TextField, Button } from '@material-ui/core';
+import React, {useState} from 'react';
+import { Container, Grid, Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import BackButton from '../Buttons/BackButton';
 import "./Checkout.css"
+import CartItem from '../CartItem/CartItem';
+import CartDetails from '../CartDetails/CartDetails';
+import DeliveryForm from '../Form/DeliveryForm';
 
 
 const useStyles = makeStyles(theme => ({
   detailsContainer: {
     padding: theme.spacing(8, 0)
-  },
-  text_field: {
-    background: "#f5f5f5"
-  },
-  mainButton: {
-    marginTop: theme.spacing(1),
   },
   heading: {
     paddingBottom: theme.spacing(1),
@@ -22,8 +19,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+
+
 const Checkout = (props) => {
-  const { cartItems } = props;
+  const { cartItems, removeCart, quantityIncrement, quantityDecrement, clearCart } = props;
+  const [formData, setFormData] = useState();
+  const onSubmit = ()=> (data) => { setFormData(data) }
+  
+  const hasFormData = formData && formData.deliveryOption && formData.name && formData.roadNo && formData.flatNo && formData.details
+
+
   const classes = useStyles();
   return (
     <Box component='section'>
@@ -32,35 +37,33 @@ const Checkout = (props) => {
           <Grid item xs={12}>
             <BackButton/>
           </Grid>
-
           <Grid item md={6}>
             <Typography variant="h5" className={classes.heading}>
               Edit Delivery Details
             </Typography>
-
-            <form className={classes.root} noValidate autoComplete="off">
-              <TextField label="Deliver Option" variant="outlined" fullWidth margin="dense" color="secondary" defaultValue="Deliver to door"/>
-              <TextField label="Business Name" variant="outlined" fullWidth margin="dense" color="secondary"/>
-              <TextField label="Road No" variant="outlined" fullWidth margin="dense" color="secondary"/>
-              <TextField label="Flat, Suite OR Floor" variant="outlined" fullWidth margin="dense" color="secondary"/>
-              <TextField label="Add delivery instructor" fullWidth variant="outlined" multiline rows="3" color="secondary" margin="dense"/>
-              <Button variant="contained" color="secondary" size="large"  fullWidth className={classes.mainButton}>
-                Save & Continue
-              </Button>
-            </form>
+            <DeliveryForm onSubmit={onSubmit()}/>
           </Grid>
 
           <Grid item md={2}></Grid>
           
-          <Grid item md={4}>
-            <h1>Cart Item</h1>
-            <ul>
+          <Grid item md={4} xs={12}>
+            <Typography variant="body1" component="p" gutterBottom>
+              Form <strong>Gulshan Plaza Restaura GPR</strong>
+            </Typography>
+            <Typography variant="body1" component="p" gutterBottom>
+              Arriving in 20-30 min
+            </Typography>
+            <Typography variant="body1" component="p" gutterBottom>
+              107 Rd No 9
+            </Typography>
+            
+            <Box component="div" className={classes.cartItemWrapper}>
               {
-                cartItems.map(el => <li key={el.item.id}>{el.item.name} <br/> {el.quantity}</li>)
+                cartItems.map(item => <CartItem item={item} key={item.item.id} removeCart={removeCart} quantityIncrement={quantityIncrement} quantityDecrement={quantityDecrement} hasFormData={hasFormData}/>)
               }
-            </ul>
+            </Box>
+            <CartDetails cartItems={cartItems} hasFormData={hasFormData} clearCart={clearCart}/>
           </Grid>
-          
         </Grid>
       </Container>
     </Box>

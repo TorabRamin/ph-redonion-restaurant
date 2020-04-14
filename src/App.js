@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -16,6 +16,11 @@ import FoodDetails from './Components/FoodDetails/FoodDetails';
 import NotFound from './Components/NotFound/NotFound';
 import Checkout from './Components/Checkout/Checkout';
 import { useState } from 'react';
+import Tracking from './Components/Tracking/Tracking';
+import Login from './Components/Login/Login';
+import { AuthContextProvider, PrivateRoute } from './Components/Login/useAuth';
+import SignupForm from './Components/Form/SignupForm';
+
 
 function App() {
 
@@ -85,34 +90,67 @@ function App() {
     setCart(temp)
   }
   
+  const removeCart = itemId => ()=>  setCart(cart.filter(cartItem=>(cartItem.item.id !== itemId)))
+  const clearCart = itemId => () => setCart([]);
+  const quantityIncrement = itemId => () => setCart(cart.map(cartItem => {
+    if (cartItem.item.id === itemId) {
+      cartItem.quantity += 1
+    }
+    return cartItem
+  }))
+  const quantityDecrement = itemId => () => setCart(cart.map(cartItem => {    
+    if (cartItem.item.id === itemId && cartItem.quantity > 1) { 
+      cartItem.quantity -= 1
+    }
+    return cartItem
+  }))
+
+
   return (
-    <Router>
-      <ScrollToTop>
-        <Header cartItems={cart}/>
-        <Switch>
-          <Route path="/items">
-            <FoodArea />
-          </Route>
-          <Route exact path="/">
-            <Banner />
-            <FoodArea/>
-            <Feature />
-          </Route>
+    <AuthContextProvider>
+      <Router>
+        <ScrollToTop>
+          <Header cartItems={cart}/>
+          <Switch>
+            <Route path="/items">
+              <FoodArea />
+            </Route>
+            <Route exact path="/">
+              <Banner />
+              <FoodArea/>
+              <Feature />
+            </Route>
+            <Route path="/item/:itemId">
+              <FoodDetails addCart={addCart} />
+            </Route>   
+            
+            
+            <PrivateRoute path="/checkout">
+              <Checkout cartItems={cart} removeCart={removeCart} quantityIncrement={quantityIncrement} quantityDecrement={quantityDecrement} clearCart={clearCart}/>
+            </PrivateRoute>
+            <PrivateRoute path="/tracking">
+              <Tracking/>
+            </PrivateRoute>
+            
+            
+            <Route to="/login">
+              <Login/>
+            </Route>
+            <Route exact to="/signup">
+              <SignupForm/>
+            </Route>
+            
+
+            
+            <Route path="*">
+              <NotFound/>
+            </Route>
+          </Switch>
           
-          <Route path="/item/:itemId">
-            <FoodDetails addCart={addCart} />
-          </Route>
-          <Route path="/checkout">
-            <Checkout cartItems={cart}/>
-          </Route>
-          <Route path="*">
-            <NotFound/>
-          </Route>
-        </Switch>
-        
-        <Footer />
-        </ScrollToTop>
-      </Router>
+          <Footer />
+          </ScrollToTop>
+        </Router>
+      </AuthContextProvider>
   );
 }
 

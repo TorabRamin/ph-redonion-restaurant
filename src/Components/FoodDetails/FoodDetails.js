@@ -50,13 +50,10 @@ const useStyles = makeStyles(theme => ({
 
 
 const FoodDetails = (props) => {
-
-  const {addCart} = props
-  
   const classes = useStyles();
+  const {addCart} = props
   const { itemId } = useParams();
-  // eslint-disable-next-line
-  const item = foodData.find(item => item.id == itemId);
+  const item = foodData.find(item => item.id === Number(itemId));
   const { name, images, price, fullDescription } = item;
 
   const [quantity, setQuantity] = useState(1);
@@ -70,8 +67,6 @@ const FoodDetails = (props) => {
 
   // Alert bar
   const [open, setOpen] = useState(false);
-
-
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
