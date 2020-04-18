@@ -20,6 +20,7 @@ import Tracking from './Components/Tracking/Tracking';
 import Login from './Components/Login/Login';
 import { AuthContextProvider, PrivateRoute } from './Components/Login/useAuth';
 import SignupForm from './Components/Form/SignupForm';
+import LoginForm from './Components/Form/LoginForm';
 
 
 function App() {
@@ -112,18 +113,18 @@ function App() {
         <ScrollToTop>
           <Header cartItems={cart}/>
           <Switch>
-            <Route path="/items">
-              <FoodArea />
-            </Route>
             <Route exact path="/">
               <Banner />
               <FoodArea/>
               <Feature />
             </Route>
+            
+            <Route path="/items">
+              <FoodArea />
+            </Route>
             <Route path="/item/:itemId">
               <FoodDetails addCart={addCart} />
             </Route>   
-            
             
             <PrivateRoute path="/checkout">
               <Checkout cartItems={cart} removeCart={removeCart} quantityIncrement={quantityIncrement} quantityDecrement={quantityDecrement} clearCart={clearCart}/>
@@ -132,20 +133,19 @@ function App() {
               <Tracking/>
             </PrivateRoute>
             
-            
-            <Route to="/login">
-              <Login/>
+            <Route path="/login">
+              <Login />
+              <LoginForm/>
             </Route>
-            <Route exact to="/signup">
+            <Route path="/signup">
               <SignupForm/>
             </Route>
-            
 
-            
             <Route path="*">
               <NotFound/>
             </Route>
           </Switch>
+          
           
           <Footer />
           </ScrollToTop>

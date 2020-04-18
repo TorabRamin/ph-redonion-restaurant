@@ -2,8 +2,12 @@ import React from 'react';
 import Auth from './useAuth';
 import {
   useHistory,
-  useLocation
+  useLocation,
 } from "react-router-dom";
+import {
+  Route,
+  Redirect
+} from 'react-router-dom';
 
 const Login = () => {
   const auth = Auth();
@@ -16,8 +20,8 @@ const Login = () => {
     auth.signInWithGoogle()
       .then(res => {
         // history.push(from);
+        // history.push('/checkout');
         console.log('hello');
-        
       })
   }
   return (
